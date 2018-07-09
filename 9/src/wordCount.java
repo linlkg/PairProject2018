@@ -11,7 +11,7 @@ public class wordCount {
         String path = input.next();
         List<String> wordArray = new ArrayList<String>();
         int countChar=0;
-        int countWord=0;
+//        int countWord=0;
         int counLine=0;
         InputStreamReader reader = new InputStreamReader(new FileInputStream(args[0])); // 建立一个输入流对象reader
         BufferedReader br = new BufferedReader(reader); // 建立一个对象，它把文件内容转成计算机能读懂的语言
@@ -29,17 +29,6 @@ public class wordCount {
         }
         reader.close();//关闭文件
 
-         Map<String, Integer> wordsCount = new TreeMap<String,Integer>();  //存储单词计数信息，key值为单词，value为单词数
-         //单词的词频统计
-        for (String li : lists) {
-        if(wordsCount.get(li) != null){
-            wordsCount.put(li,wordsCount.get(li) + 1);
-        }else{
-            wordsCount.put(li,1);
-        }
-            countWord++;
-        }
-
 
         //写入Txt文件
         File f = new File("output.txt");
@@ -48,8 +37,10 @@ public class wordCount {
         PrintStream printStream = new PrintStream(fileOutputStream);
         System.setOut(printStream);
         System.out.println("characters:"+countChar);
-        System.out.println("words:"+countWord);
+//        System.out.println("words:"+countWord);
         System.out.println("lines:"+counLine);
+        Map<String, Integer> wordsCount = new TreeMap<String,Integer>();  //存储单词计数信息，key值为单词，value为单词数
+        countWord(wordsCount,lists);
         SortMap(wordsCount);    //按值进行排序
     }
 
@@ -72,6 +63,19 @@ public class wordCount {
             }
         }
 
+    }
+    public static void countWord( Map<String, Integer> wordsCount,List<String> lists){
+        int countWord=0;
+        //单词的词频统计
+        for (String li : lists) {
+            if(wordsCount.get(li) != null){
+                wordsCount.put(li,wordsCount.get(li) + 1);
+            }else{
+                wordsCount.put(li,1);
+            }
+            countWord++;
+            System.out.println("words:"+countWord);
+        }
     }
 
 
